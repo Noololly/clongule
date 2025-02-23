@@ -4,7 +4,7 @@ from discord.ui import Modal, TextInput, View
 import dotenv
 import os
 
-#import json
+import game
 
 dotenv.load_dotenv()
 BOT_TOKEN = os.getenv('BOT_TOKEN')
