@@ -1,5 +1,5 @@
-import json
 import random
+from psqltest import SQLConn
 
 words = {}
 clongs = []
@@ -10,16 +10,16 @@ def init():
     Initialises the game so that all clongs and their words can be accessed by the program
     :return:
     """
-    global words, clongs
-    with open('words.json', encoding='utf-8', mode='r') as f:
-        unparsed_words = f.read()
+    global clongs
 
-    words = json.loads(unparsed_words)
-    clongs = list(words.keys())
+    conn = SQLConn() #create the connection to the database
+    cur = conn.conn.cursor()
+    cur.execute("SELECT DISTINCT lang FROM clongule") #get all individual clongs
+    clongs = [row[0] for row in cur.fetchall()] #format it into a usable format
 
 def main():
     init()
-    print(clongs)
+
 
 if __name__ == "__main__":
     main()
