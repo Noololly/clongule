@@ -12,12 +12,12 @@ class SQLConn:
 
         self.mypkey = paramiko.Ed25519Key.from_private_key_file('SQLKey')
 
-        tunnel = SSHTunnelForwarder(
+        self.tunnel = SSHTunnelForwarder(
             ('hackclub.app', 22),
             ssh_username="noololly",
             ssh_pkey=self.mypkey,
             remote_bind_address=('localhost', 5432)
         )
 
-        tunnel.start()
-        self.conn = psycopg2.connect(database="noololly", user="noololly", password=self.PASSWORD, host="127.76.48.123", port=tunnel.local_bind_port)
+        self.tunnel.start()
+        self.conn = psycopg2.connect(database="noololly", user="noololly", password=self.PASSWORD, host="127.76.48.123", port=self.tunnel.local_bind_port)
