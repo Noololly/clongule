@@ -1,4 +1,4 @@
-import psqltest
+import psql_connector
 
 connection = psqltest.SQLConn() #open connection to database
 
