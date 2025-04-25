@@ -1,6 +1,6 @@
 import psql_connector
 
-connection = psqltest.SQLConn() #open connection to database
+connection = psql_connector.SQLConn() #open connection to database
 
 def get_word():
     lang = get_lang()
@@ -37,7 +37,7 @@ def get_lang(): #this gets a random clong that hasn't been used in the last 2 da
     if lang not in get_previous_lang(): # if the clong hasn't been used in the last 2 days, insert into the table, and return true
         return lang
     else:
-        return False
+        return get_lang()
 
 
 
@@ -64,6 +64,3 @@ def get_previous_lang(): #this gets the previous 2 clongs
     else:
         previous_lang = (previous_lang_1, None)
         return previous_lang
-
-
-get_word()

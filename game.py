@@ -26,6 +26,7 @@ def init(bot: discord.client):
 def new_day():
 	global day
 	day = Day()
+	remove_timed_out()
 
 
 class Day:
@@ -41,6 +42,7 @@ class Day:
 		self.IPA = self.get_ipa()
 		self.english = self.get_english()
 		self.is_cxei = self.get_is_cxei()
+		self.conn.conn.close()
 
 
 	def get_english(self):
@@ -175,6 +177,7 @@ async def validate_guess(guess, channel: discord.TextChannel, user_id: int):
 	cur = conn.conn.cursor()
 	cur.execute(is_cxei_query, (guess,))
 	is_cxei = cur.fetchone()[0]
+	conn.conn.close()
 
 	if user_id not in timed_out:
 		if guess == day.clong:
